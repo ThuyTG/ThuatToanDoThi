@@ -95,6 +95,43 @@ namespace _24dh113182_TruongGiaThuy
                         edgeList2.EdgeListInput(fileIn);
                         edgeList2.PrintDegreeOfEdges(fileOut);
                         break;
+
+                    // ============ BUỔI 2 ============
+                    case 8:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\Canh2Ke.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\Canh2Ke.OUT";
+                        
+                        break;
+                    case 9:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\Ke2Canh.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\Ke2Canh.OUT";
+                        
+                        break;
+                    case 10:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\MaTranKe2DSKe.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\MaTranKe2DSKe.OUT";
+                        
+                        break;
+                    case 11:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\MaTranKe2DSCanh.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\MaTranKe2DSCanh.OUT";
+                        
+                        break;
+                    case 12:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\MaTranKe2DSCanh.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\MaTranKe2DSCanh.OUT";
+                        
+                        break;
+                    case 13:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\ChuyenVi.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\ChuyenVi.OUT";
+                        
+                        break;
+                    case 14:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\TrungBinhCanh.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\TrungBinhCanh.OUT";
+                        
+                        break;
                 }
             } while (choice != 0);            
         }
