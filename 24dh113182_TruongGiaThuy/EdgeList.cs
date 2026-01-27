@@ -10,16 +10,20 @@ namespace _24dh113182_TruongGiaThuy
     // 24dh113182 - Trương Gia Thuỵ
     internal class EdgeList
     {
-        private int n;  // Số đỉnh
-        private int edge;   // Số cạnh
-        private LinkedList<Tuple<int, int>> edges;
-        public int N { get; set; }
-        public int Edge { get; set; }
-        public LinkedList<Tuple<int, int>> Edges { get;} = new LinkedList<Tuple<int, int>>();
+        public int n;
+        public int edge;
+        public LinkedList<Tuple<int, int>> edges { get; set; }
+        //public int N { get { return n; } set { n = value; } } 
+        //public int Edge { get { return edge; } set { edge = value; } }
+        //public LinkedList<Tuple<int, int>> edges { get { return edges; } set { edges = value; } } 
 
+        public EdgeList() {
+            this.edges = new LinkedList<Tuple<int, int>>();
+        }
         public EdgeList(int soDinh)
         {
             this.n = soDinh;
+            this.edges = new LinkedList<Tuple<int, int>>();
         }
 
         // 24dh113182 - Trương Gia Thuỵ
@@ -37,7 +41,7 @@ namespace _24dh113182_TruongGiaThuy
                 arr = line.Split(' ');
                 int dinh1 = int.Parse(arr[0]);
                 int dinh2 = int.Parse(arr[1]);
-                Edges?.AddLast(new Tuple<int, int>(dinh1,dinh2));
+                edges?.AddLast(new Tuple<int, int>(dinh1,dinh2));
             }
             sr.Close();
         }
@@ -47,9 +51,9 @@ namespace _24dh113182_TruongGiaThuy
         {
             StreamWriter sw = new StreamWriter(fileOut);
             sw.WriteLine("Số đỉnh: " + n);
-            for(int i = 0; i < Edges.Count; i++)
+            for(int i = 0; i < edges.Count; i++)
             {
-                Tuple<int, int> e = Edges.ElementAt(i);
+                Tuple<int, int> e = edges.ElementAt(i);
                 Console.WriteLine($"{e.Item1} {e.Item2}");
                 sw.WriteLine($"{e.Item1} {e.Item2}");
             }
@@ -57,18 +61,18 @@ namespace _24dh113182_TruongGiaThuy
         }
 
         // 24dh113182 - Trương Gia Thuỵ
-        public void PrintDegreeOfEdges(string fileOut)
+        public void PrintDegreeOfedges(string fileOut)
         {
             StreamWriter sw = new StreamWriter(fileOut);
             int[] count = new int[n + 1];
             sw.WriteLine("Số đỉnh: " + n);
-            for(int i = 0; i < Edges.Count; i++)
+            for(int i = 0; i < edges.Count; i++)
             {
-                Tuple<int, int> e = Edges.ElementAt(i);
+                Tuple<int, int> e = edges.ElementAt(i);
                 count[e.Item1]++;
                 count[e.Item2]++;
             }
-            foreach(Tuple<int, int> e in Edges)
+            foreach(Tuple<int, int> e in edges)
             {
                 int dinh = e.Item1;
                 count[dinh]++;
@@ -114,9 +118,9 @@ namespace _24dh113182_TruongGiaThuy
             int soDinh = this.n;
             AdjecencyList adj = new AdjecencyList(soDinh);
 
-            for(int i = 1; i <= adj.N; i++)
+            for(int i = 1; i <= adj.n; i++)
             {
-                adj.V[i] = new LinkedList<int>();
+                adj.v[i] = new LinkedList<int>();
             }
 
             foreach(Tuple<int, int> canh in edges)
@@ -124,8 +128,8 @@ namespace _24dh113182_TruongGiaThuy
                 int dinh1 = canh.Item1;
                 int dinh2 = canh.Item2;
 
-                adj.V[dinh1].AddLast(dinh2);
-                adj.V[dinh2].AddLast(dinh1);
+                adj.v[dinh1].AddLast(dinh2);
+                adj.v[dinh2].AddLast(dinh1);
             }
             adj.Print_AdjecencyList_To_File(fileOut);
         }
@@ -136,7 +140,7 @@ namespace _24dh113182_TruongGiaThuy
             int soDinh = this.n;
             AdjecencyMatrix adjMatrix = new AdjecencyMatrix(soDinh);
             int[,] matrix = new int[soDinh + 1, soDinh + 1];
-            for(int i = 1; i <= adjMatrix.N; i++)
+            for(int i = 1; i <= adjMatrix.n; i++)
             {
                 foreach(Tuple<int, int> e in edges)
                 {
@@ -145,7 +149,7 @@ namespace _24dh113182_TruongGiaThuy
                     if (matrix[dinh1, dinh2] == 0) matrix[dinh1, dinh2] = 1;
                 }
             }
-            adjMatrix.E = matrix;
+            adjMatrix.e = matrix;
             adjMatrix.AdjecencyMatrixOutput(fileOut);
         }
     }

@@ -9,20 +9,21 @@ namespace _24dh113182_TruongGiaThuy
 {
     internal class EdgeWeightedList
     {
-        private int soDinh;
-        private int soCanh;
-        private LinkedList<Tuple<int, int, int>> edges;
+        public int soDinh { get; set; }
+        public int soCanh { get; set; }
+        public LinkedList<Tuple<int, int, int>> edges { get; set; }
 
-        public int SoDinh { get; set; }
-        public int SoCanh { get; set; }
-        public Tuple<int, int, int> Edges { get; set; }
 
+        public EdgeWeightedList()
+        {
+            this.edges = new LinkedList<Tuple<int, int, int>>();
+        }
         public void Read_EdgeWeightedList(string fileIn)
         {
             StreamReader sr = new StreamReader(fileIn);
             string[] line = sr.ReadLine().Split(' ');
-            SoDinh = int.Parse(line[0]);
-            SoCanh = int.Parse(line[1]);
+            soDinh = int.Parse(line[0]);
+            soCanh = int.Parse(line[1]);
             while(sr.EndOfStream == false)
             {
                 line = sr.ReadLine().Split(' ');
@@ -33,7 +34,18 @@ namespace _24dh113182_TruongGiaThuy
             }
             sr.Close();
         }
-
+        public void Print_EdgeWeightedList(string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            sw.WriteLine($"{soDinh} {soCanh}");
+            Console.WriteLine($"{soDinh} {soCanh}");
+            foreach (Tuple<int, int, int> e in edges)
+            {
+                Console.WriteLine($"{e.Item1} {e.Item2} {e.Item3}");
+                sw.WriteLine($"{e.Item1} {e.Item2} {e.Item3}");
+            }
+            sw.Close();
+        }
         public float Average_EdgeWeight()
         {
             int sum = 0;
@@ -41,7 +53,7 @@ namespace _24dh113182_TruongGiaThuy
             {
                 sum += e.Item3;
             }
-            return sum / soCanh;
+            return (float)sum / soCanh;
         }
         public int GetMaxWeight()
         {
@@ -55,9 +67,9 @@ namespace _24dh113182_TruongGiaThuy
             }
             return max;
         }
-        public Tuple<int, int, int>[] GetListEdgeMaxWeigth()
+        public List<Tuple<int, int, int>> GetListEdgeMaxWeigth()
         {
-            Tuple<int, int, int>[] ds = new Tuple<int, int, int>[0];
+            List<Tuple <int, int, int>> ds = new List<Tuple<int, int, int>>();
             int max = GetMaxWeight();
             int i = 0;
             foreach(Tuple<int, int, int> e in edges)
@@ -65,7 +77,7 @@ namespace _24dh113182_TruongGiaThuy
                 if(e.Item3 == max)
                 {
                     Tuple<int,int, int> newMax =  new Tuple<int, int, int>(e.Item1, e.Item2, e.Item3);
-                    ds.Append(newMax);
+                    ds.Add(newMax);
                     i++;
                 }
             }
@@ -75,14 +87,17 @@ namespace _24dh113182_TruongGiaThuy
         public void Print_EdgeWeightedList_To_File(string fileOut)
         {
             StreamWriter sw = new StreamWriter(fileOut);
-            sw.WriteLine($"{Average_EdgeWeight()}");
-            Tuple<int, int, int>[] list = GetListEdgeMaxWeigth();
-            for(int i = 0; i < list.Length; i++)
+            float avg = Average_EdgeWeight();
+            Console.WriteLine($"{avg}");
+            sw.WriteLine($"{avg}");
+            List<Tuple<int, int, int>> list = GetListEdgeMaxWeigth();
+            for(int i = 0; i < list.Count; i++)
             {
                 Tuple<int, int, int> e = list.ElementAt(i);
                 Console.WriteLine($"{e.Item1} {e.Item2} {e.Item3}");
                 sw.WriteLine($"{e.Item1} {e.Item2} {e.Item3}");
             }
+            Console.WriteLine($"Số lượng cạnh max: {list.Count}");
             sw.Close();
         }
     }

@@ -10,14 +10,18 @@ namespace _24dh113182_TruongGiaThuy
     // 24dh113182 - Trương Gia Thuỵ
     internal class AdjecencyMatrix
     {
-        private int n; // Số đỉnh
-        private int[,] e; // Ma trận kề
+        public int n { get; set; }
+        public int[,] e { get; set; }
 
-        public int N { get; set; }
-        public int[,] E { get; set; }
+        
+        
+        public AdjecencyMatrix() {
+            e = new int[0, 0];
+        }
         public AdjecencyMatrix(int soDinh)
         {
             n = soDinh;
+            e = new int[n+ 1,n+1];
         }
         
         // 1. Nhập xuất ma trận kề
@@ -44,6 +48,7 @@ namespace _24dh113182_TruongGiaThuy
                     }
                 }
             }
+            sr.Close();
         }
         public void AdjecencyMatrixOutput(string fileOut)
         {
@@ -114,15 +119,15 @@ namespace _24dh113182_TruongGiaThuy
             AdjecencyMatrixInput(fileIn);
             int soDinh = this.n;
             AdjecencyList adj = new AdjecencyList(soDinh);
-            for(int i = 1; i < adj.V.Count(); i++)
+            for(int i = 1; i < adj.v.Count(); i++)
             {
-                adj.V[i] = new LinkedList<int>();
+                adj.v[i] = new LinkedList<int>();
             }
             for(int i = 1; i < e.GetLength(0); i++)
             {
                 for(int j = 1; j < e.GetLength(1); j++)
                 {
-                    if (e[i, j] == 1) adj.V[i].AddLast(e[i, j]);
+                    if (e[i, j] == 1) adj.v[i].AddLast(j);
                 }
             }
 
@@ -141,7 +146,7 @@ namespace _24dh113182_TruongGiaThuy
 
             for(int i = 1; i < e.GetLength(0); i++)
             {
-                for(int j = 1; j < e.GetLength(1); i++)
+                for(int j = 1; j < e.GetLength(1); j++)
                 {
                     if (e[i, j] == 1)
                     {
@@ -149,11 +154,11 @@ namespace _24dh113182_TruongGiaThuy
                         int dinh2 = j;
                         Tuple<int, int> canh = new Tuple<int, int>(dinh1, dinh2);
                         bool checkDuplicate = list.CheckEdgeDuplicate(canh);
-                        if (checkDuplicate == false) list.Edges.AddLast(canh);
+                        if (checkDuplicate == false) list.edges.AddLast(canh);
                     }
                 }
             }
-            list.Edge = list.Edges.Count();
+            list.edge = list.edges.Count();
 
             Console.WriteLine("Danh sách ma trận kề trước khi chuyển đổi");
             AdjecencyMatrixOutput(fileIn);
