@@ -34,6 +34,12 @@ namespace _24dh113182_TruongGiaThuy
                 Console.WriteLine("14. Danh sách cạnh có trọng số: tính độ dài trung bình của cạnh và lấy ra các cạnh có trọng số lớn nhất");
                 Console.WriteLine("15. Chuyển đổi: Danh sách cạnh --> Ma trận kề");
                 Console.WriteLine("16. Chuyển đổi: Danh sách kề --> Ma trận kề");
+                Console.WriteLine("17. Duyệt đồ thị theo BFS ");
+                Console.WriteLine("18. Kiểm tra đỉnh liên thông với đỉnh s");
+                Console.WriteLine("19. Tìm đường đi");
+                Console.WriteLine("20. Kiểm tra đồ thị liên thông");
+                Console.WriteLine("21. Đếm số miền liên thông");
+                Console.WriteLine("22. Kiểm tra các đỉnh là bồn chứa");
                 Console.WriteLine("0. Exit");
 
                 Console.WriteLine("-------------------------------------------------");
@@ -162,6 +168,46 @@ namespace _24dh113182_TruongGiaThuy
                         AdjecencyList list4 = new AdjecencyList();
                         list4.Convert_AdjecencyList_To_AdjecencyMatrix(fileIn, fileOut);
                         break;
+
+                    // ======== Buổi 3 =========
+                    case 17:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\BFS_Bai1.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\BFS_Bai1.OUT";
+                        AdjecencyList buoi3_bai1 = new AdjecencyList();
+                        buoi3_bai1.AdjecencyListInput(fileIn);
+                        buoi3_bai1.Print_BFS(fileOut);
+                        break;
+                    case 18:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\BFS_Bai2.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\BFS_Bai2.OUT";
+                        AdjecencyList buoi3_bai2 = new AdjecencyList();
+                        buoi3_bai2.Print_DSLienThong(fileIn, fileOut);
+                        break;
+                    case 19:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\TimDuong.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\TimDuong.OUT";
+                        AdjecencyList buoi3_bai3 = new AdjecencyList();
+                        buoi3_bai3.Print_TimDuongDi(fileIn, fileOut);
+                        break;
+                    case 20:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\LienThong.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\LienThong.OUT";
+                        AdjecencyList buoi3_bai4 = new AdjecencyList();
+                        buoi3_bai4.Print_KiemTraDoThiLienThong(fileIn, fileOut);
+                        break;
+                    case 21:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\DemLienThong.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\DemLienThong.OUT";
+                        AdjecencyList buoi3_bai5 = new AdjecencyList();
+                        buoi3_bai5.DemSoMienLienThong(fileIn, fileOut);
+                        break;
+                    case 22:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi2\MaTranKe2DSKe.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi2\BonChua.OUT";
+                        AdjecencyMatrix buoi3_bai6 = new AdjecencyMatrix();
+                        buoi3_bai6.BonChua(fileIn, fileOut);
+                        break;
+
                 }
             } while (choice != 0);            
         }

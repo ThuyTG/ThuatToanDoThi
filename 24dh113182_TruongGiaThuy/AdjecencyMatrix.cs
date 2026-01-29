@@ -165,5 +165,52 @@ namespace _24dh113182_TruongGiaThuy
             Console.WriteLine("Sau khi chuyển đổi sang danh sách cạnh");
             list.Print_EdgeList_To_File(fileOut);   
         }
+
+
+        // Buoi 3
+
+        public int BacRaCuaDinh(int dinh)
+        {
+            int bacRa = 0;
+            for (int column = 1; column < e.GetLength(1); column++)
+            {
+                if (e[dinh, column] == 1) bacRa++;
+            }
+            return bacRa;
+        }
+        public  int BacVaoCuaDinh(int dinh)
+        {
+            int bacVao = 0;
+            for(int row = 1; row < e.GetLength(0); row++)
+            {
+                if (e[row, dinh] == 1) bacVao++;
+            }
+            return bacVao;
+        }
+        public void BonChua(string fileIn, string fileOut)
+        {
+            AdjecencyMatrixInput(fileIn);
+            StreamWriter sw = new StreamWriter(fileOut);
+            List<int> dsBonChua = new List<int>();
+            for (int i = 1; i <= n; i++)
+            {
+                if (BacRaCuaDinh(i) == 0 && BacVaoCuaDinh(i) > 0)
+                {
+                    dsBonChua.Add(i);
+                }
+            }
+            sw.WriteLine($"Số lượng bồn chứa: {dsBonChua.Count}");
+            Console.WriteLine($"Số lượng bồn chứa: {dsBonChua.Count}");
+            if(dsBonChua.Count > 0)
+            {
+                foreach (int dinh in dsBonChua)
+                {
+                    Console.WriteLine(dinh);
+                    sw.WriteLine(dinh);
+                }
+            }
+            
+            sw.Close();
+        }
     }
 }

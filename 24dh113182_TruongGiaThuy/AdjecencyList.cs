@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace _24dh113182_TruongGiaThuy
 
                     for (int j = 0; j < arr.Length; j++)
                     {
-                        if (arr[j] == "" || arr.Length == 1) break;
+                        if (arr[j] == "") break;
                         v[i].AddLast(int.Parse(arr[j]));
                     }
                 }
@@ -190,6 +191,209 @@ namespace _24dh113182_TruongGiaThuy
 
             Console.WriteLine("Danh sách sau chuyển vị");
             reverse_v.Print_AdjecencyList_To_File(fileOut);
+        }
+
+        // ======= Buổi 3 ========
+        public void Print_BFS(string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            Console.Write("Nhập số đỉnh bắt đầu duyệt: ");
+            int start = int.Parse(Console.ReadLine());
+            sw.WriteLine($"Đỉnh bắt đầu: {start}");
+            List<int> dsBFS = BFS(start,ref visited, ref pre);
+            Console.WriteLine("BFS: ");
+            sw.WriteLine("BFS: ");
+            Console.Write(start + " ");
+            sw.Write(start + " ");
+            for(int i = 1; i < dsBFS.Count; i++)
+            {
+                Console.Write(dsBFS[i] + " ");
+                sw.Write(dsBFS[i] + " ");
+            }
+            Console.WriteLine();
+            sw.Close();
+        }
+        public List<int> BFS(int start, ref bool[] visitedList, ref int[] pre)
+        {
+            List<int> dsBFS = new List<int>();
+            Queue<int> q = new Queue<int>();
+            visitedList[start] = true;
+            q.Enqueue(start);
+            dsBFS.Add(start);
+            pre[start] = -1;
+            while(q.Count > 0)
+            {
+                int u = q.Dequeue();
+                foreach(int ke in v[u])
+                {
+                    if (visitedList[ke] == true) continue;
+                    else
+                    {
+                        visitedList[ke] = true;
+                        q.Enqueue(ke);
+                        dsBFS.Add(ke);
+                        pre[ke] = u;
+                    }
+                }
+            }
+            return dsBFS;
+        }
+
+        public void Input_DSLienThong(string fileIn, out int start)
+        {
+            StreamReader sr = new StreamReader(fileIn);
+            string line = sr.ReadLine();
+            string[] arr = line.Split(' ');
+            this.n = int.Parse(arr[0]);
+
+            start = int.Parse(arr[1]);
+            v = new LinkedList<int>[n + 1];
+            while(sr.EndOfStream == false)
+            {
+                for(int i = 1; i < this.v.Length; i++)
+                {
+                    line = sr.ReadLine();
+                    arr = line.Split(' ');
+                    v[i] = new LinkedList<int>();
+                    for(int j = 0; j < arr.Length; j++)
+                    {
+                        if (arr[j] == "") break;
+                        v[i].AddLast(int.Parse(arr[j]));
+                    }
+                }
+            }
+            sr.Close();
+        }
+        
+
+        public void Print_DSLienThong(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            int start;
+            Input_DSLienThong(fileIn, out start);
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            List<int> dsLienThong = BFS(start, ref visited, ref pre);
+            Console.WriteLine($"Số lượng đỉnh liên thông: {dsLienThong.Count - 1}");
+            sw.WriteLine($"Số lượng đỉnh liên thông: {dsLienThong.Count - 1}");
+            for (int i = 1; i < dsLienThong.Count; i++)
+            {
+                if (dsLienThong[i] != start)
+                {
+                    Console.WriteLine(dsLienThong[i] + " ");
+                    sw.WriteLine(dsLienThong[i] + " ");
+                }
+            }
+            sw.Close();
+        }
+
+        public void Print_TimDuongDi(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            int start, end;
+            Input_TimDuongDi(fileIn, out start, out end);
+            LinkedList<int> DuongDi = TimDuongDi(start, end);
+            foreach (int t in DuongDi)
+            {
+                Console.Write(t + " ");
+                sw.Write(t + " ");
+            }
+            Console.WriteLine();
+            sw.Close();
+        }
+        public LinkedList<int> TimDuongDi(int start, int end)
+        {
+            LinkedList<int> path = new LinkedList<int>();
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            List<int> ds = BFS(start, ref visited, ref pre);
+            for(int i = end; i != -1; i = pre[i])
+            {
+                path.AddFirst(i);
+            }
+            return path;
+        }
+        public void Input_TimDuongDi(string fileIn, out int start, out int end)
+        {
+            StreamReader sr = new StreamReader(fileIn);
+            string line = sr.ReadLine();
+            string[] arr = line.Split(' ');
+            this.n = int.Parse(arr[0]);
+
+            start = int.Parse(arr[1]);
+            end = int.Parse(arr[2]);
+            v = new LinkedList<int>[n + 1];
+            while (sr.EndOfStream == false)
+            {
+                for (int i = 1; i < this.v.Length; i++)
+                {
+                    line = sr.ReadLine();
+                    arr = line.Split(' ');
+                    v[i] = new LinkedList<int>();
+                    for (int j = 0; j < arr.Length; j++)
+                    {
+                        if (arr[j] == "") break;
+                        v[i].AddLast(int.Parse(arr[j]));
+                    }
+                }
+            }
+            sr.Close();
+        }
+
+        public void Print_KiemTraDoThiLienThong(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            AdjecencyListInput(fileIn);
+            bool KetQua = KiemTraDoThiLienThong();
+            if (KetQua)
+            {
+                Console.WriteLine("Đồ thị liên thông");
+                sw.WriteLine("Đồ thị liên thông");
+            }
+            else
+            {
+                Console.WriteLine("Đồ thị không liên thông");
+                sw.WriteLine("Đồ thị không liên thông");
+            }
+            sw.Close();
+        }
+        public bool KiemTraDoThiLienThong(bool isConnected = true)
+        {
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+
+            List<int> DoThi = BFS(1, ref visited, ref pre);
+            foreach(bool visit in visited)
+            {
+                if(visit == false)
+                {
+                    return isConnected = false;
+                }
+            }
+            return isConnected;
+        }
+
+        public void DemSoMienLienThong(string fileIn, string fileOut)
+        {
+            AdjecencyListInput(fileIn);
+            StreamWriter sw = new StreamWriter(fileOut);
+
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            int cnt = 0;
+            for(int i = 1; i < v.Length; i++)
+            {
+                if (visited[i] == false)
+                {
+                    cnt++;
+                    BFS(i, ref visited, ref pre);
+                }
+            }
+            Console.WriteLine(cnt);
+            sw.WriteLine(cnt);
+            sw.Close();
         }
     }
 }
