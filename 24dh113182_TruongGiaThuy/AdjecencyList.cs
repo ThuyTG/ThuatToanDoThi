@@ -395,6 +395,125 @@ namespace _24dh113182_TruongGiaThuy
             sw.WriteLine(cnt);
             sw.Close();
         }
+
+        // ==== Buổi 4 ====
+        public List<List<int>> MienLienThong(string fileIn)
+        {
+            AdjecencyListInput(fileIn);
+            List<List<int>> dsMienLienThong = new List<List<int>>();
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            int cnt = 0;
+            for (int i = 1; i < v.Length; i++)
+            {
+                if (visited[i] == false)
+                {
+                    cnt++;
+                    List<int> mienlienThong = BFS(i, ref visited, ref pre);
+                    dsMienLienThong.Add(mienlienThong);
+                }
+            }
+            return dsMienLienThong;
+        }
+        public void LietKeMienLienThong(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            List<List<int>> dsMienLienThong = MienLienThong(fileIn);
+            Console.WriteLine("Số lượng miền liên thông: " + dsMienLienThong.Count);
+            sw.WriteLine("Số lượng miền liên thông: " + dsMienLienThong.Count);
+            foreach (List<int> ds in dsMienLienThong)
+            {
+                for(int i = 0; i < ds.Count; i++)
+                {
+                    Console.Write(ds[i] + " ");
+                    sw.Write(ds[i] + " ");
+                }
+                Console.WriteLine();
+                sw.WriteLine();
+            }
+            sw.Close();
+        }
+
+        public int SoMienLienThong()
+        {
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            int cnt = 0;
+            for (int i = 1; i < v.Length; i++)
+            {
+                if (visited[i] == false)
+                {
+                    cnt++;
+                    BFS(i, ref visited, ref pre);
+                }
+            }
+            return cnt;
+
+        }
+        public bool KiemTraCanhCau(string fileIn)
+        {
+            int dinhBatDau, dinhKetThuc;
+            Input_TimDuongDi(fileIn, out dinhBatDau, out dinhKetThuc);
+            int countTruocXoa = SoMienLienThong();
+            v[dinhBatDau].Remove(dinhKetThuc);
+            v[dinhKetThuc].Remove(dinhBatDau);
+            int countSauXoa = SoMienLienThong();
+            if (countSauXoa > countTruocXoa) return true;
+            return false;
+        }
+        public void InKiemTraCanhCau(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            bool KTCC = KiemTraCanhCau(fileIn);
+            if (KTCC)
+            {
+                Console.WriteLine("YES");
+                sw.WriteLine("YES");
+            }
+            else
+            {
+                Console.WriteLine("NO");
+                sw.WriteLine("NO");
+            }
+            sw.Close();
+        }
+
+        public bool KiemTraDinhKhop(string fileIn)
+        {
+            int dinhKiemTra;
+            Input_DSLienThong(fileIn, out dinhKiemTra);
+            int countTruocXoa = SoMienLienThong();
+            v[dinhKiemTra].Clear();
+            for(int i = 1; i < v.Length; i++)
+            {
+                if (v[i].Contains(dinhKiemTra))
+                {
+                    v[i].Remove(dinhKiemTra);
+                }
+            }
+            int countSauXoa = SoMienLienThong();
+            if(countSauXoa - countTruocXoa >= 2)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void InKiemTraDinhKhop(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            bool KTDK = KiemTraDinhKhop(fileIn);
+            if (KTDK)
+            {
+                Console.WriteLine("YES");
+                sw.WriteLine("YES");
+            }
+            else
+            {
+                Console.WriteLine("NO");
+                sw.WriteLine("NO");
+            }
+            sw.Close();
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -40,6 +41,12 @@ namespace _24dh113182_TruongGiaThuy
                 Console.WriteLine("20. Kiểm tra đồ thị liên thông");
                 Console.WriteLine("21. Đếm số miền liên thông");
                 Console.WriteLine("22. Kiểm tra các đỉnh là bồn chứa");
+                
+                // Buổi 4
+                Console.WriteLine("23. Liệt kê miền liên thông BFS");
+                Console.WriteLine("24. Cạnh cầu");
+                Console.WriteLine("25. Đỉnh khớp");
+                Console.WriteLine("26. Đi trên lưới");
                 Console.WriteLine("0. Exit");
 
                 Console.WriteLine("-------------------------------------------------");
@@ -208,6 +215,33 @@ namespace _24dh113182_TruongGiaThuy
                         buoi3_bai6.BonChua(fileIn, fileOut);
                         break;
 
+                    // ======== BUỔI 4 ========
+                    case 23:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\MienLienThongBFS.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\MienLienThongBFS.OUT";
+                        AdjecencyList buoi4_bai1 = new AdjecencyList();
+                        buoi4_bai1.LietKeMienLienThong(fileIn, fileOut);
+                        break;
+                    case 24:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\CanhCau.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\CanhCau.OUT";
+                        AdjecencyList buoi4_bai2 = new AdjecencyList();
+                        buoi4_bai2.InKiemTraCanhCau(fileIn, fileOut);
+                        break;
+                    case 25:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\DinhKhop.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\DinhKhop.OUT";
+                        AdjecencyList buoi4_bai3 = new AdjecencyList();
+                        buoi4_bai3.InKiemTraDinhKhop(fileIn, fileOut);
+                        break;
+                    case 26:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\Grid.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\Grid.OUT";
+                        Grid buoi4_bai4 = new Grid();
+                        int startX, startY, endX, endY;
+                        buoi4_bai4.InputGrid(fileIn, out startX, out startY, out endX, out endY);
+                        buoi4_bai4.PrintGrid();
+                        break;
                 }
             } while (choice != 0);            
         }
