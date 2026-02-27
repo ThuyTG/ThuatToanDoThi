@@ -47,14 +47,23 @@ namespace _24dh113182_TruongGiaThuy
                 Console.WriteLine("24. Cạnh cầu");
                 Console.WriteLine("25. Đỉnh khớp");
                 Console.WriteLine("26. Đi trên lưới");
-                Console.WriteLine("0. Exit");
 
+
+                // Buổi 5
+                Console.WriteLine("27. Liệt kê đỉnh liên thông DFS");
+                Console.WriteLine("28. Tìm đường đi DFS");
+                Console.WriteLine("29. Đồ thị phân đôi");
+                Console.WriteLine("30. Kiểm tra chu trình");
+                Console.WriteLine("31. Sắp xếp TOPO");
+
+                Console.WriteLine("0. Exit");
                 Console.WriteLine("-------------------------------------------------");
                 Console.Write("Nhập vào lựa chọn của bạn: ");
                 choice = int.Parse(Console.ReadLine());
                 
                 switch (choice)
                 {
+                    // ============ BUỔI 1 ============
                     // 24dh113182 - Trương Gia Thuỵ
                     case 1:
                         fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi1\AdjecencyMaTrix.INP";
@@ -176,7 +185,7 @@ namespace _24dh113182_TruongGiaThuy
                         list4.Convert_AdjecencyList_To_AdjecencyMatrix(fileIn, fileOut);
                         break;
 
-                    // ======== Buổi 3 =========
+                    // ============ BUỔI 3 ============
                     case 17:
                         fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\BFS_Bai1.INP";
                         fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi3\BFS_Bai1.OUT";
@@ -215,7 +224,7 @@ namespace _24dh113182_TruongGiaThuy
                         buoi3_bai6.BonChua(fileIn, fileOut);
                         break;
 
-                    // ======== BUỔI 4 ========
+                    // ============ BUỔI 4 ============
                     case 23:
                         fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\MienLienThongBFS.INP";
                         fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi4\MienLienThongBFS.OUT";
@@ -241,6 +250,38 @@ namespace _24dh113182_TruongGiaThuy
                         int startX, startY, endX, endY;
                         buoi4_bai4.InputGrid(fileIn, out startX, out startY, out endX, out endY);
                         buoi4_bai4.PrintGrid();
+                        break;
+
+                    // ============ BUỔI 5 ============
+                    case 27:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\DFS.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\DFS.OUT";
+                        AdjecencyList buoi5_bai1 = new AdjecencyList();
+                        buoi5_bai1.LietKeDinhLienThongDFS(fileIn, fileOut);
+                        break;
+                    case 28:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\TimDuongDFS.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\TimDuongDFS.OUT";
+                        AdjecencyList buoi5_bai2 = new AdjecencyList();
+                        buoi5_bai2.TimDuongDiDFS(fileIn, fileOut);
+                        break;
+                    case 29:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\PhanDoi.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\PhanDoi.OUT";
+                        AdjecencyList buoi5_bai3 = new AdjecencyList();
+                        buoi5_bai3.DoThiPhanDoi(fileIn, fileOut);
+                        break;
+                    case 30:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\ChuTrinh.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\ChuTrinh.OUT";
+                        AdjecencyList buoi5_bai4 = new AdjecencyList();
+                        buoi5_bai4.KiemTraChuTrinh(fileIn, fileOut);
+                        break;
+                    case 31:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\TopoSort.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\TopoSort.OUT";
+                        AdjecencyList buoi5_bai5 = new AdjecencyList();
+                        buoi5_bai5.TopoSort(fileIn, fileOut);
                         break;
                 }
             } while (choice != 0);            

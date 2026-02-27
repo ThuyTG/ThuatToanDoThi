@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace _24dh113182_TruongGiaThuy
 {
+    // ============ BUỔI 4 ============
     internal class Grid
     {
         private int n; // Row

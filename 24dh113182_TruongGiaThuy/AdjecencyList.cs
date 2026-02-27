@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -193,7 +194,7 @@ namespace _24dh113182_TruongGiaThuy
             reverse_v.Print_AdjecencyList_To_File(fileOut);
         }
 
-        // ======= Buổi 3 ========
+        // ============ BUỔI 3 ============
         public void Print_BFS(string fileOut)
         {
             StreamWriter sw = new StreamWriter(fileOut);
@@ -396,7 +397,7 @@ namespace _24dh113182_TruongGiaThuy
             sw.Close();
         }
 
-        // ==== Buổi 4 ====
+        // ============ BUỔI 4 ============
         public List<List<int>> MienLienThong(string fileIn)
         {
             AdjecencyListInput(fileIn);
@@ -511,6 +512,281 @@ namespace _24dh113182_TruongGiaThuy
             {
                 Console.WriteLine("NO");
                 sw.WriteLine("NO");
+            }
+            sw.Close();
+        }
+
+        // ============ BUỔI 5 ============
+
+            // ------------- Bài 1 -------------
+        public void DFS_Recursion(int s, ref bool[] visited, List<int> DSCacDinhDaDuyet)
+        {
+            if (visited[s] == true) return;
+            else
+            {
+                // 1. Ghi nhận đã viếng thăm s và đưa s vào danh sách đỉnh đã duyệt
+                visited[s] = true;
+                DSCacDinhDaDuyet.Add(s);
+
+                // 2. Duyệt qua các đỉnh kề s và chưa viếng thăm
+                foreach(int ke in v[s])
+                {
+                    if (visited[ke] == false)                     
+                    {
+                        DFS_Recursion(ke, ref visited, DSCacDinhDaDuyet);
+                    }
+                }
+
+            }
+        }
+        public void In_DFS_Recursion(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            AdjecencyListInput(fileIn);
+            bool[] visited = new bool[n + 1];
+            List<int> DSCacDinhDaDuyet = new List<int>();
+            DFS_Recursion(1, ref visited, DSCacDinhDaDuyet);
+
+            for(int i = 0; i < DSCacDinhDaDuyet.Count; i++)
+            {
+                Console.Write($"{DSCacDinhDaDuyet[i]} ");
+                sw.Write($"{DSCacDinhDaDuyet[i]} ");
+            }
+            sw.Close();
+        }
+        
+        public void LietKeDinhLienThongDFS(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            int start;
+            Input_DSLienThong(fileIn, out start);
+            bool[] visited = new bool[n + 1];
+            List<int> DinhLienThong_DFSRecursion = new List<int>();
+            DFS_Recursion(start, ref visited, DinhLienThong_DFSRecursion);
+            for(int i = 0; i < DinhLienThong_DFSRecursion.Count; i++)
+            {
+                Console.Write($"{DinhLienThong_DFSRecursion[i]} ");
+                sw.Write($"{DinhLienThong_DFSRecursion[i]} "); 
+            }
+            Console.WriteLine();
+            sw.WriteLine();
+            sw.Close();
+        }
+
+            // ------------- Bài 2 -------------
+
+        public void DFS_Recursion_For_FindPath(int s, ref bool[] visited, ref int[] pre, List<int> DSCacDinhDaDuyet)
+        {
+            if (visited[s] == true) return;
+            else
+            {
+                visited[s] = true;
+                DSCacDinhDaDuyet.Add(s);
+                foreach(int ke in v[s])
+                {
+                    if (visited[ke] == false)
+                    {
+                        pre[ke] = s;
+                        DFS_Recursion_For_FindPath(ke, ref visited, ref pre, DSCacDinhDaDuyet);
+                    }
+                }
+            }
+        }
+        public void TimDuongDiDFS(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            int start, end;
+            Input_TimDuongDi(fileIn, out start, out end);
+            bool[] visited = new bool[n + 1];
+            int[] pre = new int[n + 1];
+            List<int> DSCacDinhDaDuyet= new List<int>();
+            LinkedList<int> findPath = new LinkedList<int>();
+
+            for(int i = 0; i < pre.Length; i++)
+            {
+                pre[i] = -1;
+            }
+            DFS_Recursion_For_FindPath(start, ref visited, ref pre, DSCacDinhDaDuyet);
+
+            for(int i = end; i != -1; i = pre[i])
+            {
+                findPath.AddFirst(i);
+            }
+            Console.WriteLine(findPath.Count);
+            sw.WriteLine(findPath.Count);
+            for(int i = 0; i < findPath.Count; i++)
+            {
+                Console.Write($"{findPath.ElementAt(i)} ");
+                sw.Write($"{findPath.ElementAt(i)} ");
+            }
+            Console.WriteLine();
+            sw.WriteLine();
+            sw.Close();
+        }
+            // ------------- Bài 3 -------------
+
+        public void DFS_Recursion_PhanDoi(int s, ref bool[] visited, ref string[] colors, List<int> DSCacDinhDaDuyet)
+        {
+            if (visited[s] == true) return;
+            else
+            {
+                visited[s] = true;
+                DSCacDinhDaDuyet.Add(s);
+                foreach(int ke in v[s])
+                {
+                    if (visited[ke] == false)
+                    {
+                        if (colors[s] == "RED")
+                        {
+                            colors[ke] = "GREEN";
+                        }
+                        else if (colors[s] == "GREEN")
+                        {
+                            colors[ke] = "RED";
+                        }
+                    }
+                }
+            }
+        }
+        public bool KiemTraPhanDoi(string[] colors)
+        {
+            for(int i = 1; i < v.Length; i++)
+            {
+                LinkedList<int> list = v[i];
+                foreach(int item in list)
+                {
+                    if (colors[i] == colors[item]) return false;
+                }
+            }
+            return true;
+        }
+        public void DoThiPhanDoi(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            AdjecencyListInput(fileIn);
+            bool[] visited = new bool[n + 1];
+            List<int> DSCacDinhDaDuyet = new List<int>();
+            string[] colors = new string[n + 1];
+            for(int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = "No Color";
+            }
+            colors[1] = "RED";
+            DFS_Recursion_PhanDoi(1, ref visited, ref colors, DSCacDinhDaDuyet);
+            bool KetQua = KiemTraPhanDoi(colors);
+            if (KetQua)
+            {
+                Console.WriteLine("YESSSSS");
+                sw.WriteLine("YESSSSS");
+            }
+            else
+            {
+                Console.WriteLine("NOOOOOOOO");
+                sw.WriteLine("NOOOOOOO");
+            }
+            sw.Close();
+        }
+
+            // ------------- Bài 4 -------------
+        public void DFS_Recursion_Cycle(int s, ref int[] visited, ref bool isCycle, List<int> DSCacDinhDaDuyet)
+        {
+            if (visited[s] == 1) return;
+            else
+            {
+                // 1. Set s là đang duyệt
+                visited[s] = 1;
+
+                // 2. Duyệt các đỉnh kề
+                foreach(int ke in v[s])
+                {
+                    if (visited[ke] == 1)
+                    {
+                        // Nếu duyệt thêm 1 lần nữa -> Có chu trình
+                        isCycle = true;
+                    }
+                    else
+                    {
+                        DFS_Recursion_Cycle(ke, ref visited, ref isCycle, DSCacDinhDaDuyet);
+                    }
+                }
+
+                // 3. Đã duyệt xong s
+                visited[s] = 2;
+            }
+        }
+        
+        public void KiemTraChuTrinh(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            bool isCycle = false;
+            AdjecencyListInput(fileIn);
+            int[] visited = new int[n + 1];
+            List<int> DSCacDinhDaDuyet = new List<int>();
+            
+            for(int i = 1; i < v.Length; i++)
+            {
+                if (visited[i] == 0)
+                {
+                    DFS_Recursion_Cycle(1, ref visited, ref isCycle, DSCacDinhDaDuyet);
+                }
+            }
+            if (isCycle)
+            {
+                Console.WriteLine("YESSS");
+                sw.WriteLine("YESSS");
+            }
+            else
+            {
+                Console.WriteLine("NOOO");
+                sw.WriteLine("NOOOO");
+            }
+            sw.Close();
+        }
+
+            // ------------- Bài 5 -------------
+
+        public void DFS_Recursion_Topo(int s, ref bool[] visited, List<int> DSCacDinhDaDuyet, Stack<int> stack)
+        {
+            if (visited[s] == true) return;
+            else
+            {
+                visited[s] = true;
+                foreach(int ke in DSCacDinhDaDuyet)
+                {
+                    if (visited[ke] == false)
+                    {
+                        DFS_Recursion_Topo(ke, ref visited, DSCacDinhDaDuyet, stack);
+                    }
+                }
+                stack.Push(s);
+            }
+        }
+        public void TopoSort(string fileIn, string fileOut)
+        {
+            StreamWriter sw = new StreamWriter(fileOut);
+            AdjecencyListInput(fileIn);
+            int[] visited_is_cycle = new int[n + 1];
+            List<int> DSCacDinhDaDuyet = new List<int>();
+            Stack<int> stack = new Stack<int>();
+            bool isCycle = false;
+            DFS_Recursion_Cycle(1, ref visited_is_cycle, ref isCycle, DSCacDinhDaDuyet);
+            if(isCycle == false)
+            {
+                bool[] visited = new bool[n + 1];
+                DSCacDinhDaDuyet = new List<int>();
+                for(int i = 1; i < v.Length; i++)
+                {
+                    if (visited[i] == false)
+                    {
+                        DFS_Recursion_Topo(i, ref visited, DSCacDinhDaDuyet, stack);
+                        while(stack.Count > 0)
+                        {
+                            int outItem = stack.Pop();
+                            Console.Write(outItem + " ");
+                            sw.Write(outItem + " ");
+                        }
+                    }
+                }
             }
             sw.Close();
         }
