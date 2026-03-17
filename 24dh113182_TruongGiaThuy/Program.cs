@@ -56,6 +56,21 @@ namespace _24dh113182_TruongGiaThuy
                 Console.WriteLine("30. Kiểm tra chu trình");
                 Console.WriteLine("31. Sắp xếp TOPO");
 
+
+                // Buổi 6
+                Console.WriteLine("32. Tìm đường đi Dijkstra");
+                Console.WriteLine("33. Tìm đường đi Dijkstra thông qua đỉnh trung gian X");
+                Console.WriteLine("34. Tìm đường đi FLoyWarshall");
+                Console.WriteLine("35. Tìm đường đi ra biên");
+                Console.WriteLine("36. Chọn thành phố");
+
+                // Buổi 7
+                Console.WriteLine("37. Tìm cây khung (DFS)");
+                Console.WriteLine("38. Tìm cây khung nhỏ nhất bằng Kruskal");
+                Console.WriteLine("39. Tìm cây khung nhỏ nhất bằng PRIM");
+                Console.WriteLine("40. Tìm cây khung X");
+                Console.WriteLine("41. Xây dựng các con đường");
+
                 Console.WriteLine("0. Exit");
                 Console.WriteLine("-------------------------------------------------");
                 Console.Write("Nhập vào lựa chọn của bạn: ");
@@ -282,6 +297,72 @@ namespace _24dh113182_TruongGiaThuy
                         fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi5\TopoSort.OUT";
                         AdjecencyList buoi5_bai5 = new AdjecencyList();
                         buoi5_bai5.TopoSort(fileIn, fileOut);
+                        break;
+
+                    // ============ BUỔI 6 ============
+                    case 32:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\Dijkstra.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\Dijkstra.OUT";
+                        EdgeWeightedList buoi6_bai1 = new EdgeWeightedList();
+                        buoi6_bai1.Output_TimDuongDiNganNhat(fileIn, fileOut);
+                        break;
+                    case 33:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\NganNhatX.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\NganNhatX.OUT";
+                        EdgeWeightedList buoi6_bai2 = new EdgeWeightedList();
+                        buoi6_bai2.Output_TimDuongNganNhatQuaTrungGian(fileIn, fileOut);
+                        break;
+                    case 34:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\FloydWarshall.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\FloydWarshall.OUT";
+                        AdjecencyMatrix buoi6_bai3 = new AdjecencyMatrix();
+                        buoi6_bai3.Output_FloydWarshall(fileIn, fileOut);
+                        break;
+                    case 35:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\RaBien.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\RaBien.OUT";
+                        Grid buoi6_bai4 = new Grid();
+                        buoi6_bai4.Output_RaBien(fileIn, fileOut);
+                        break;
+                    case 36:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\ChonThanhPho.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi6\ChonThanhPho.OUT";
+                        AdjecencyMatrix buoi6_bai5 = new AdjecencyMatrix();
+                        buoi6_bai5.Output_BestCity(fileIn, fileOut);
+                        break;
+
+                    // ============ BUỔI 7 ============
+                    case 37:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\CayKhung.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\CayKhung.OUT";
+                        EdgeWeightedList buoi7_bai1 = new EdgeWeightedList();
+                        buoi7_bai1.Print_TimCayKhung(fileIn, fileOut);
+                        break;
+                    case 38:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\Kruskal.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\Kruskal.OUT";
+                        EdgeWeightedList buoi7_bai2 = new EdgeWeightedList();
+                        buoi7_bai2.Print_Kruskal(fileIn, fileOut);
+                        break;
+                    case 39:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\PRIM.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\PRIM.OUT";
+                        EdgeWeightedList buoi7_bai3 = new EdgeWeightedList();
+                        buoi7_bai3.Print_PRIM(fileIn, fileOut);
+                        break;
+                    case 40:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\CayKhungX.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\CayKhungX.OUT";
+                        EdgeWeightedList buoi7_bai4 = new EdgeWeightedList();
+                        buoi7_bai4.Print_PRIM_X(fileIn, fileOut);
+                        break;
+                    case 41:
+                        fileIn = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\Road.INP";
+                        fileOut = @"D:\Study\HUFLIT\Nam 2\HK2\ThuatToanDoThi\ThucHanh\Buoi7\Road.OUT";
+                        AdjecencyMatrix buoi7_bai5 = new AdjecencyMatrix();
+                        buoi7_bai5.Output_Kruskal_Road(fileIn, fileOut);
+                        break;
+                    default:
                         break;
                 }
             } while (choice != 0);            
